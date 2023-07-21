@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  db_prod:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password --init-file /docker-entrypoint-initdb.d/script.sql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'oc_yoga-app_db'
+      MYSQL_USER: 'oc_user'
+      MYSQL_PASSWORD: 'oc_pwd'
+      MYSQL_ROOT_PASSWORD: 'oc_pwd'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./ressources/sql:/docker-entrypoint-initdb.d
