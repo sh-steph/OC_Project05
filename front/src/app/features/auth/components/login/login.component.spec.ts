@@ -13,7 +13,6 @@ import { SessionService } from 'src/app/services/session.service';
 import { LoginComponent } from './login.component';
 import { LoginRequest } from '../../interfaces/loginRequest.interface';
 import { AuthService } from '../../services/auth.service';
-import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
 import { throwError } from 'rxjs';
 
 describe('LoginComponent', () => {
@@ -21,6 +20,7 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let authService: AuthService;
   let sessionService: SessionService;
+  let loginRequest: LoginRequest;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -55,13 +55,13 @@ describe('LoginComponent', () => {
 
   // Check values and type of email and password
   it('should have a string type for both email and password', () => {
-    const testEmail = 'MyTest@test.com';
-    const testPassword = 'MyPWDTest';
+    // Initiate registerRequest object
+    loginRequest = {
+      email: 'myTestEmail@test.com',
+      password: 'myTestPassword',
+    };
 
-    component.form.setValue({
-      email: testEmail,
-      password: testPassword,
-    });
+    component.form.setValue(loginRequest);
 
     fixture.detectChanges();
 
@@ -75,14 +75,14 @@ describe('LoginComponent', () => {
 
   // Check if login or password are false
   it('should display error message on login failure', () => {
-    const testEmail = 'falseEmail';
-    const testPassword = 'falsePassword';
+    // Initiate registerRequest object
+    loginRequest = {
+      email: 'myFalseTestEmail@test.com',
+      password: 'myFalseTestPassword',
+    };
 
     // Set the form values
-    component.form.setValue({
-      email: testEmail,
-      password: testPassword,
-    });
+    component.form.setValue(loginRequest);
 
     // Mock login() to return an error
     const authServiceSpy = jest
@@ -99,10 +99,7 @@ describe('LoginComponent', () => {
     expect(component.onError).toBe(true);
 
     // Assert that the authService.login() method was called with the correct loginRequest
-    expect(authServiceSpy).toHaveBeenCalledWith({
-      email: testEmail,
-      password: testPassword,
-    });
+    expect(authServiceSpy).toHaveBeenCalledWith(loginRequest);
   });
 
   it('should display error message when required fields are missing', () => {
