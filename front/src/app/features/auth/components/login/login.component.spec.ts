@@ -11,10 +11,16 @@ import { expect } from '@jest/globals';
 import { SessionService } from 'src/app/services/session.service';
 
 import { LoginComponent } from './login.component';
+import { LoginRequest } from '../../interfaces/loginRequest.interface';
+import { AuthService } from '../../services/auth.service';
+import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
+import { throwError } from 'rxjs';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let authService: AuthService;
+  let sessionService: SessionService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,15 +34,90 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
-        ReactiveFormsModule]
-    })
-      .compileComponents();
+        ReactiveFormsModule,
+      ],
+    }).compileComponents();
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    authService = TestBed.inject(AuthService);
+    sessionService = TestBed.inject(SessionService);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    // Reset spy
+    jest.clearAllMocks();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  // Check values and type of email and password
+  it('should have a string type for both email and password', () => {
+    const testEmail = 'MyTest@test.com';
+    const testPassword = 'MyPWDTest';
+
+    component.form.setValue({
+      email: testEmail,
+      password: testPassword,
+    });
+
+    fixture.detectChanges();
+
+    // Get the form value and check the properties
+    const formValue = component.form.value as LoginRequest;
+
+    // Check types
+    expect(typeof formValue.email).toBe('string');
+    expect(typeof formValue.password).toBe('string');
+  });
+
+  // Check if login or password are false
+  it('should display error message on login failure', () => {
+    const testEmail = 'falseEmail';
+    const testPassword = 'falsePassword';
+
+    // Set the form values
+    component.form.setValue({
+      email: testEmail,
+      password: testPassword,
+    });
+
+    // Mock login() to return an error
+    const authServiceSpy = jest
+      .spyOn(authService, 'login')
+      .mockReturnValue(throwError(() => 'Invalid credentials'));
+
+    // Trigger the form submission
+    component.submit();
+
+    // Trigger change detection to update the component
+    fixture.detectChanges();
+
+    // Set error to true
+    expect(component.onError).toBe(true);
+
+    // Assert that the authService.login() method was called with the correct loginRequest
+    expect(authServiceSpy).toHaveBeenCalledWith({
+      email: testEmail,
+      password: testPassword,
+    });
+  });
+
+  it('should display error message when required fields are missing', () => {
+
+    // Set error to true
+    component.onError = true;
+
+    component.submit();
+    fixture.detectChanges();
+  
+    expect(component.onError).toBe(true);
+    expect(jest.spyOn(authService, 'login')).not.toHaveBeenCalled();
+    expect(component.form.controls['email'].invalid).toBe(true);
+    expect(component.form.controls['email'].hasError('required')).toBe(true);
+    expect(component.form.controls['password'].invalid).toBe(true);
+    expect(component.form.controls['password'].hasError('required')).toBe(true);
   });
 });
