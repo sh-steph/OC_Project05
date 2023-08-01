@@ -17,7 +17,6 @@ describe('ListComponent', () => {
   let fixture: ComponentFixture<ListComponent>;
   let sessionsList: Session[];
   let sessionApiService: SessionApiService;
-  let userService: UserService;
   let userData: User;
 
   const mockSessionService = {
@@ -83,7 +82,6 @@ describe('ListComponent', () => {
     fixture.whenStable().then(() => {
       // Get all the session in the template through class 'item' where the loop come from
       const sessionsObject = fixture.nativeElement.querySelectorAll('.item');
-      console.log('sessions obj : ', sessionsObject);
 
       // Check the length of sessions list
       expect(sessionsObject.length).toBe(sessionsList.length);
@@ -91,21 +89,13 @@ describe('ListComponent', () => {
       // Check if the session names are displayed correctly
       for (let i = 0; i < sessionsObject.length; i++) {
         const card = sessionsObject[i];
-        expect(card.querySelector('.mat-card-title').textContent).toContain(
-          sessionsList[i].name
-        );
-        console.log('title : ', sessionsList[i].name);
-        expect(card.querySelector('.mat-card-subtitle').textContent).toContain(
-          sessionsList[i].date
-        );
-        console.log('title : ', sessionsList[i].date);
-        expect(card.querySelector('.mat-card-content').textContent).toContain(
-          sessionsList[i].description
-        );
-        console.log('title : ', sessionsList[i].description);
+        expect(card.querySelector('.mat-card-title').textContent).toContain(sessionsList[i].name);
+        expect(card.querySelector('.mat-card-subtitle').textContent).toContain(sessionsList[i].date);
+        expect(card.querySelector('.mat-card-content').textContent).toContain(sessionsList[i].description);
       }
     });
   });
+
   it('should display the buttons Create and Detail if the user is admin', () => {
     userData = {
       id: 1,
@@ -114,9 +104,9 @@ describe('ListComponent', () => {
       firstName: 'testFirstName',
       admin: true,
       password: 'testAdminPassword',
-      createdAt: new Date,
-      updatedAt: new Date
-    }
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
     jest.spyOn(sessionApiService, 'all').mockReturnValue(of(sessionsList));
 
     fixture.detectChanges();
@@ -126,7 +116,6 @@ describe('ListComponent', () => {
       // Query the template to find the buttons
       const createButton = fixture.nativeElement.querySelector('[routerLink="create"]');
       const detailButton = fixture.nativeElement.querySelector('[routerLink^="detail"]');
-
       // Assert that the buttons are present
       expect(createButton).toBeTruthy();
       expect(detailButton).toBeTruthy();
