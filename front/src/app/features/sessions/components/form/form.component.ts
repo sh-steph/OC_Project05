@@ -81,6 +81,7 @@ export class FormComponent implements OnInit {
           Validators.max(2000)
         ]
       ],
+      users: [session ? session.users : []],
     });
   }
 
