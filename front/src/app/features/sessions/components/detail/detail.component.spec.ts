@@ -116,4 +116,41 @@ describe('DetailComponent', () => {
         expect(detailButton).toBeTruthy();
     });
   });
+
+  it('should Delete the session', () => {
+    // Mock a session detail
+  session = {
+    id: 2,
+    name: 'testSessionDetail',
+    description: 'testDescription',
+    date: new Date(),
+    teacher_id: 1,
+    users: [1, 3, 5, 6],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  // Mock the service method to return the session detail
+  const sessionApiServiceSpy = jest
+    .spyOn(sessionApiService, 'detail')
+    .mockReturnValue(of(session));
+
+  // Mock the service method to delete the session
+  const deleteSessionSpy = jest
+    .spyOn(sessionApiService, 'delete')
+    .mockReturnValue(of(session));
+
+  fixture.detectChanges();
+
+  // Wait for the end of detection
+  fixture.whenStable().then(() => {
+    // Query the template to find the delete button
+    const deleteButton = fixture.nativeElement.querySelector('.delete-button');
+    expect(deleteButton).toBeTruthy();
+    // Simulate a click on the delete button
+    deleteButton.click();
+    // Expect the delete method to be called with the correct session id
+    expect(deleteSessionSpy).toHaveBeenCalledWith(session.id);
+  });
+  });
 });
