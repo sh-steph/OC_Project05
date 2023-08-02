@@ -21,6 +21,7 @@ describe('FormComponent', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
   let session: Session;
+  let updatedSession: Session;
   let sessionApiService: SessionApiService;
 
   const mockSessionService = {
@@ -65,6 +66,7 @@ describe('FormComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // Test : Create Session
   it('should create session', () => {
     // Mock a new session
     session = {
@@ -119,5 +121,66 @@ describe('FormComponent', () => {
       expect(component.sessionForm?.get('description')?.invalid).toBe(true);
       expect(component.sessionForm?.get('description')?.hasError('required')).toBe(true);    
     });
+  });
+
+  // Test : Update Session 
+  it('should update a session', () => {
+    // Mock an existing session
+    session = {
+      id: 2,
+      name: 'testSession',
+      description: 'testDescription',
+      date: new Date,
+      teacher_id: 1,
+      users: [1,3,4],
+      createdAt: new Date,
+      updatedAt: new Date,
+    };
+  
+    // Mock the service method to return the existing session detail
+    const sessionApiServiceSpy = jest
+      .spyOn(sessionApiService, 'detail')
+      .mockReturnValue(of(session));
+  
+    fixture.detectChanges();
+    // Wait the end of detect
+    fixture.whenStable().then(() => {
+      expect(sessionApiServiceSpy).toHaveBeenCalledWith(session.id);
+      expect(component.sessionForm?.value).toEqual(session);
+      // Update the form with new values
+      updatedSession = {
+        ...session,
+        name: 'Updated Session',
+        description: 'Updated Description',
+      };
+      component.sessionForm?.patchValue(updatedSession);
+  
+      // Mock the service method to return the updated session
+      const updatedSessionApiServiceSpy = jest
+        .spyOn(sessionApiService, 'update')
+        .mockReturnValue(of(updatedSession));
+  
+      // Trigger the form submit for update
+      component.submit();
+      // Expect the update method to be called with the updated form values
+      expect(updatedSessionApiServiceSpy).toHaveBeenCalledWith(session.id, updatedSession);
+    });
+  });
+
+  it('should display error message if fields are missing', () => {
+    component.onUpdate = true;
+    // Trigger the form submit
+    component.submit();
+    fixture.detectChanges();
+
+    expect(component.onUpdate).toBe(true);
+    expect(component.sessionForm?.controls['name'].hasError('required')).toBe(true);
+    expect(component.sessionForm?.controls['name'].invalid).toBe(true);
+    expect(component.sessionForm?.controls['date'].hasError('required')).toBe(true);
+    expect(component.sessionForm?.controls['date'].invalid).toBe(true);
+    expect(component.sessionForm?.controls['teacher_id'].hasError('required')).toBe(true);
+    expect(component.sessionForm?.controls['teacher_id'].invalid).toBe(true);
+    expect(component.sessionForm?.controls['description'].hasError('required')).toBe(true);
+    expect(component.sessionForm?.controls['description'].invalid).toBe(true);
   });
 });
