@@ -19,7 +19,26 @@ describe('Login spec', () => {
         method: 'GET',
         url: '/api/session',
       },
-      []
+      [{
+        id: 1,
+        name: 'My first session',
+        description: 'This is the first yoga session.',
+        date: new Date().toISOString(),
+        teacher_id: 1,
+        users: [1, 2],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        id: 2,
+        name: 'My second session',
+        description: 'This is the second yoga session.',
+        date: new Date().toISOString(),
+        teacher_id: 3,
+        users: [2, 5, 6],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },]
     ).as('session');
 
     cy.get('input[formControlName=email]').type('yoga@studio.com');
