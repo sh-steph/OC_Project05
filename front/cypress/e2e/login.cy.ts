@@ -1,9 +1,6 @@
 describe('Login spec', () => {
   beforeEach(() => {
     cy.visit('/login');
-  });
-
-  it('should login successfully', () => {
     cy.intercept('POST', '/api/auth/login', {
       body: {
         id: 1,
@@ -40,7 +37,9 @@ describe('Login spec', () => {
         updatedAt: new Date().toISOString(),
       },]
     ).as('session');
+  });
 
+  it('should login successfully', () => {
     cy.get('input[formControlName=email]').type('yoga@studio.com');
     cy.get('input[formControlName=password]').type(
       `${'test!1234'}{enter}{enter}`
@@ -50,6 +49,12 @@ describe('Login spec', () => {
   });
 
   it('should not login if field is invalid', () => {
+    cy.intercept('POST', '/api/auth/login', {
+      statusCode: 400,
+      body: {
+        error: 'Invalid credentials',
+      },
+    })
 
     cy.get('input[formControlName=email]').type('yoga@studio.com');
     cy.get('input[formControlName=password]').type('fakePassword');
@@ -65,5 +70,21 @@ describe('Login spec', () => {
     cy.get('[type="submit"]').click();
 
     cy.get('.error').should('contain', 'An error occurred');
+  });
+
+  it('should not login if the fields are empties', () => {
+    cy.get('input[formControlName=email]').type('yoga@studio.com');
+    cy.get('input[formControlName=email]').clear();
+    cy.get('input[formControlName=password]').type('fakePassword');
+    cy.get('input[formControlName=password]').clear();
+    cy.get('button[type="submit"]').should('be.disabled');
+  });
+
+  it('should display error if a require field is missing', () => {
+    cy.get('input[formControlName=email]').type('yoga@studio.com');
+    cy.get('input[formControlName=email]').clear();
+    cy.get('input[formControlName=password]').type('fakePassword');
+    cy.get('input[formControlName=email]').should('have.class', 'mat-input-element mat-form-field-autofill-control ng-tns-c55-0 cdk-text-field-autofill-monitored ng-dirty ng-invalid ng-touched');
+    cy.get('button[type="submit"]').should('be.disabled');
   });
 });
