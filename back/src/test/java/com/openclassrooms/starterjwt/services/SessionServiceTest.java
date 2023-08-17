@@ -2,6 +2,7 @@ package com.openclassrooms.starterjwt.services;
 
 import com.openclassrooms.starterjwt.models.Session;
 import com.openclassrooms.starterjwt.models.Teacher;
+import com.openclassrooms.starterjwt.models.User;
 import com.openclassrooms.starterjwt.repository.SessionRepository;
 import com.openclassrooms.starterjwt.repository.UserRepository;
 
@@ -23,7 +24,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,7 +35,12 @@ class SessionServiceTest {
     @InjectMocks
     private SessionService sessionService;
     Teacher teacher = new Teacher();
-    Session session = new Session();
+    Session session1 = new Session();
+    Session session2 = new Session();
+    List<Session> sessionList = new ArrayList<>();
+    User user1 = new User();
+    User user2 = new User();
+    List<User> userList = new ArrayList<>();
     @Mock
     SessionRepository sessionRepository;
     @Mock
@@ -50,33 +58,134 @@ class SessionServiceTest {
                 .createdAt(createdAt)
                 .updatedAt(LocalDateTime.now())
                 .build();
-
+        user1 = User.builder()
+                .id(1L)
+                .email("User1@test.com")
+                .lastName("lastNameTest")
+                .firstName("firstNameTest")
+                .password("Test1234-")
+                .admin(true)
+                .build();
+        user2 = User.builder()
+                .id(2L)
+                .email("User2@test.com")
+                .lastName("lastNameTest2")
+                .firstName("firstNameTest2")
+                .password("Test1234-")
+                .admin(false)
+                .build();
+        userList.add(user1);
+        userList.add(user2);
         String dateString = "2023-08-14";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(dateString);
-        session = Session.builder()
+        session1 = Session.builder()
                 .id(1L)
                 .name("Yoga session 1")
                 .date(date)
                 .teacher(teacher)
                 .users(null)
-                .description("Yoga session description 1")
+                .description("Yoga session1 description 1")
                 .build();
+        session2 = Session.builder()
+                .id(2L)
+                .name("Yoga advanced session 2")
+                .date(date)
+                .teacher(teacher)
+                .users(userList)
+                .description("Yoga session advanced description 2")
+                .build();
+
+        sessionList.add(session1);
+        sessionList.add(session2);
     }
 
     @DisplayName("JUnit test Create session")
     @Test
     void createSessionTest() {
-        when(sessionRepository.save(session)).thenReturn(session);
-
-        Session createdSession = sessionService.create(session);
-
+        when(sessionRepository.save(session1)).thenReturn(session1);
+        Session createdSession = sessionService.create(session1);
         assertNotNull(createdSession);
-        assertEquals(session.getId(), createdSession.getId());
-        assertEquals(session.getName(), createdSession.getName());
-        assertEquals(session.getTeacher(), createdSession.getTeacher());
-        assertEquals(session.getUsers(), createdSession.getUsers());
-        assertEquals(session.getDescription(), createdSession.getDescription());
-        verify(sessionRepository, times(1)).save(session);
+        assertEquals(session1.getId(), createdSession.getId());
+        assertEquals(session1.getName(), createdSession.getName());
+        assertEquals(session1.getTeacher(), createdSession.getTeacher());
+        assertEquals(session1.getUsers(), createdSession.getUsers());
+        assertEquals(session1.getDescription(), createdSession.getDescription());
+        verify(sessionRepository, times(1)).save(session1);
+    }
+
+    @DisplayName("JUnit test Delete session1")
+    @Test
+    void deleteSessionTest() {
+        sessionService.delete(session1.getId());
+        verify(sessionRepository, times(1)).deleteById(session1.getId());
+    }
+
+    @DisplayName("JUnit test Find all session")
+    @Test
+    void findAllSessionTest() {
+        when(sessionRepository.findAll()).thenReturn(sessionList);
+        List<Session> findMySessionList = sessionService.findAll();
+        assertEquals(sessionList, findMySessionList);
+    }
+
+    @DisplayName("JUnit test Find session by id")
+    @Test
+    void getByIdSessionTest() {
+        when(sessionRepository.findById(session1.getId())).thenReturn(Optional.of(session1));
+
+        Session findMySession = sessionService.getById(session1.getId());
+
+        assertNotNull(findMySession);
+        assertEquals(session1, findMySession);
+        assertEquals(session1.getId(), findMySession.getId());
+        assertEquals(session1.getName(), findMySession.getName());
+        assertEquals(session1.getTeacher(), findMySession.getTeacher());
+        assertEquals(session1.getUsers(), findMySession.getUsers());
+        assertEquals(session1.getDescription(), findMySession.getDescription());
+    }
+
+    @DisplayName("JUnit test Update session")
+    @Test
+    void updateSessionTest() {
+        Session updatedSession = Session.builder()
+                .id(2L)
+                .name("Updated Yoga session 2")
+                .date(new Date())
+                .teacher(teacher)
+                .users(null)
+                .description("Updated Yoga session description 2")
+                .build();
+        when(sessionRepository.save(updatedSession)).thenReturn(updatedSession);
+
+        Session myUpdatedSession = sessionService.update(session1.getId(), updatedSession);
+
+        assertNotNull(myUpdatedSession);
+        assertEquals(updatedSession, myUpdatedSession);
+    }
+
+    @DisplayName("JUnit test User1 participate session1")
+    @Test
+    void participateSessionTest() {
+        session1.setUsers(new ArrayList<>());
+
+        when(sessionRepository.findById(session1.getId())).thenReturn(Optional.of(session1));
+        when(userRepository.findById(user1.getId())).thenReturn(Optional.of(user1));
+
+        sessionService.participate(session1.getId(), user1.getId());
+
+        assertTrue(session1.getUsers().contains(user1));
+        verify(sessionRepository, times(1)).save(session1);
+    }
+
+    @DisplayName("JUnit test User2 don't participate on session2 anymore")
+    @Test
+    void noLongerParticipateSessionTest() {
+        when(sessionRepository.findById(session2.getId())).thenReturn(Optional.of(session2));
+
+        sessionService.noLongerParticipate(session2.getId(), user2.getId());
+
+        assertFalse(session2.getUsers().contains(user2));
+        verify(sessionRepository, times(1)).save(session2);
     }
 }
