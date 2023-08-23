@@ -13,9 +13,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -49,8 +51,7 @@ class TeacherServiceTest {
                 .createdAt(createdAt)
                 .updatedAt(LocalDateTime.now())
                 .build();
-        teacherList.add(teacher1);
-        teacherList.add(teacher2);
+        teacherList = Arrays.asList(teacher1, teacher2);
     }
 
     @DisplayName("JUnit test Find All Teacher")
@@ -59,7 +60,7 @@ class TeacherServiceTest {
         when(teacherRepository.findAll()).thenReturn(teacherList);
         List<Teacher> myTeacherList = teacherService.findAll();
         assertNotNull(myTeacherList);
-        assertEquals(2, myTeacherList.size());
+        assertThat(myTeacherList).hasSize(2);
     }
 
     @DisplayName("JUnit test Find Teacher by id")
@@ -68,8 +69,6 @@ class TeacherServiceTest {
         when(teacherRepository.findById(teacher1.getId())).thenReturn(Optional.of(teacher1));
         Teacher myTeacher = teacherService.findById(1L);
         assertNotNull(myTeacher);
-        assertEquals(teacher1.getId(), myTeacher.getId());
-        assertEquals(teacher1.getLastName(), myTeacher.getLastName());
-        assertEquals(teacher1.getFirstName(), myTeacher.getFirstName());
+        assertThat(teacher1).isEqualTo(myTeacher);
     }
 }

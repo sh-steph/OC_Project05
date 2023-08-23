@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -49,21 +50,17 @@ class UserServiceTest {
 
     @DisplayName("JUnit test delete User")
     @Test
-    void delete() {
+    void deleteTest() {
         userService.delete(user1.getId());
         verify(userRepository, times(1)).deleteById(user1.getId());
     }
 
     @DisplayName("JUnit test find user by id")
     @Test
-    void findById() {
+    void findByIdTest() {
         when(userRepository.findById(2L)).thenReturn(Optional.of(user2));
 
         User myFindUser = userService.findById(2L);
-
-        assertEquals(user2.getId(), myFindUser.getId());
-        assertEquals(user2.getEmail(), myFindUser.getEmail());
-        assertEquals(user2.getLastName(), myFindUser.getLastName());
-        assertEquals(user2.getFirstName(), myFindUser.getFirstName());
+        assertThat(user2).isEqualTo(myFindUser);
     }
 }

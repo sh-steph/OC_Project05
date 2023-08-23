@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -24,10 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
 class SessionServiceTest {
@@ -74,8 +72,7 @@ class SessionServiceTest {
                 .password("Test1234-")
                 .admin(false)
                 .build();
-        userList.add(user1);
-        userList.add(user2);
+        userList = Arrays.asList(user1, user2);
         String dateString = "2023-08-14";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(dateString);
@@ -95,9 +92,7 @@ class SessionServiceTest {
                 .users(userList)
                 .description("Yoga session advanced description 2")
                 .build();
-
-        sessionList.add(session1);
-        sessionList.add(session2);
+        sessionList = Arrays.asList(session1, session2);
     }
 
     @DisplayName("JUnit test Create session")
@@ -106,12 +101,10 @@ class SessionServiceTest {
         when(sessionRepository.save(session1)).thenReturn(session1);
         Session createdSession = sessionService.create(session1);
         assertNotNull(createdSession);
-        assertEquals(session1.getId(), createdSession.getId());
-        assertEquals(session1.getName(), createdSession.getName());
-        assertEquals(session1.getTeacher(), createdSession.getTeacher());
-        assertEquals(session1.getUsers(), createdSession.getUsers());
-        assertEquals(session1.getDescription(), createdSession.getDescription());
-        verify(sessionRepository, times(1)).save(session1);
+        // Compare all the content at once
+        assertThat(session1).isEqualTo(createdSession);
+        // Compare all the content one by one
+        assertThat(session1).isEqualToComparingFieldByFieldRecursively(createdSession);
     }
 
     @DisplayName("JUnit test Delete session1")
@@ -126,7 +119,7 @@ class SessionServiceTest {
     void findAllSessionTest() {
         when(sessionRepository.findAll()).thenReturn(sessionList);
         List<Session> findMySessionList = sessionService.findAll();
-        assertEquals(sessionList, findMySessionList);
+        assertThat(sessionList).isEqualTo(findMySessionList);
     }
 
     @DisplayName("JUnit test Find session by id")
@@ -137,12 +130,7 @@ class SessionServiceTest {
         Session findMySession = sessionService.getById(session1.getId());
 
         assertNotNull(findMySession);
-        assertEquals(session1, findMySession);
-        assertEquals(session1.getId(), findMySession.getId());
-        assertEquals(session1.getName(), findMySession.getName());
-        assertEquals(session1.getTeacher(), findMySession.getTeacher());
-        assertEquals(session1.getUsers(), findMySession.getUsers());
-        assertEquals(session1.getDescription(), findMySession.getDescription());
+        assertThat(session1).isEqualTo(findMySession);
     }
 
     @DisplayName("JUnit test Update session")
@@ -161,7 +149,7 @@ class SessionServiceTest {
         Session myUpdatedSession = sessionService.update(session1.getId(), updatedSession);
 
         assertNotNull(myUpdatedSession);
-        assertEquals(updatedSession, myUpdatedSession);
+        assertThat(updatedSession).isEqualTo(myUpdatedSession);
     }
 
     @DisplayName("JUnit test User1 participate session1")
