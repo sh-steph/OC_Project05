@@ -20,7 +20,6 @@ Exemple sur IntelliJ IDEA: DB_USER=oc_user;DB_PASSWORD=oc_pwd
 
 <img src='/ressources/images/IntelliJ.png' width='500'/>
 
-
 Pour la partie front du projet, aller dans le dossier **front-end** pour générer le **node_module** en exécutant la commande suivante `npm install`.
 Une fois l'installation complète, executer la commande `npm start` pour exécuter l'application et naviguer sur l'URL fourni (l'URL par défaut `http://localhost:4200/`).
 
@@ -43,10 +42,10 @@ Ce qui résulte à l'historique suivant à travers les différents commit détai
 
 <details>
   <summary>Structure des tests unitaires et des tests de bout en bout</summary>
-  <details>
+  
 
 ## Front
-
+<details>
 <summary>Test unitaire</summary>
 
 Pour les tests unitaires de la partie front du projet, j'ai opté pour `Jest` étant donné que le front a été développé sur Angular.
@@ -55,20 +54,29 @@ Jest est un framework de test JavaScript reconnu pour sa facilité d'utilisation
 
 Puisque Angular a une architecture basée sur les composants où l'on retouve sa logique(ts), son template(html) et son style(scss), on retrouvera également le fichier de test(spec.ts) où l'on rédigera l'ensemble de nos tests unitaires liés au composant en question.
 
+Taux de couverture des tests :
 
+<img src='/ressources/images/unit-test-front-coverage.png'/>
 
+</details>
+<details>
 <summary>Test de bout en bout</summary>
 
-Pour les tests de bout en bout, j'ai opté pour `Cypress` due à sa **stabilité et rapidité des tests** puisqu’il utilise une architecture unique qui s'exécute directement dans le navigateur, ce qui élimine les dépendances externes et les retards liés à l'interaction avec le navigateur, mais également à ses **possibiliés des tests**  puisque comparé aux tests unitaires, Cypress prend en charge lors de ses tests les actions que peut effectuer un utilisateur. Il peut prendre en compte plusieurs actions telles que les clics, les saisies de données, la validation des formulaires, etc. Permettant donc d’effectuer des tests complets et réalistes.
+Pour les tests de bout en bout, j'ai opté pour `Cypress` due à sa **stabilité et rapidité des tests** puisqu’il utilise une architecture unique qui s'exécute directement dans le navigateur, ce qui élimine les dépendances externes et les retards liés à l'interaction avec le navigateur, mais également à ses **possibiliés des tests** puisque comparé aux tests unitaires, Cypress prend en charge lors de ses tests les actions que peut effectuer un utilisateur. Il peut prendre en compte plusieurs actions telles que les clics, les saisies de données, la validation des formulaires, etc. Permettant donc d’effectuer des tests complets et réalistes.
 
 L'ensemble des tests de bout en bout sont répertoriés sur le path suivant `front\cypress\e2e` traitant chacun des tests une fonctionnalité importante de l'application.
-
+</details>
   </details>
   <details>
 
 ## Back
 
 <summary>Test unitaire</summary>
+
+Taux de couverture des tests :
+
+<img src='/ressources/images/unit-test-front-coverage.png'/>
+
 <summary>Test de bout en bout</summary>
 
   </details>
@@ -83,9 +91,9 @@ L'ensemble des tests de bout en bout sont répertoriés sur le path suivant `fro
 
 Les tests unitaires sont axés sur la vérification du bon fonctionnement des parties individuelles de l'application (ex: l'affichage d'un contenu si l'utilisateur a le statut d'administrateur). Les tests unitaires peuvent être des fonctions, des méthodes ou des classes. Les enjeux des tests unitaires sont les suivants :
 
- - `Isolation et détection précoce des erreurs` : Les tests unitaires permettent d'isoler chaque unité du code pour s'assurer qu'elle fonctionne correctement, indépendamment des autres parties du système. Cela facilite la détection et la résolution des erreurs à un stade précoce du développement.
- - `Régression` : Lorsque de nouvelles fonctionnalités sont ajoutées ou des modifications sont apportées, les tests unitaires aident à garantir que les modifications ne cassent pas les fonctionnalités existantes.
- - `Source de documentation complémentaire` : Les tests unitaires agissent également comme une source de documentation complémentaire pour la compréhension du code. Ils fournissent des exemples concrets de la manière dont le code doit être utilisé et des attentes de sortie. Cela permet particulièrement aux développeurs débutants et aux nouveaux membres intégrant l'équipe de faciliter l'adaptation au projet.
+- `Isolation et détection précoce des erreurs` : Les tests unitaires permettent d'isoler chaque unité du code pour s'assurer qu'elle fonctionne correctement, indépendamment des autres parties du système. Cela facilite la détection et la résolution des erreurs à un stade précoce du développement.
+- `Régression` : Lorsque de nouvelles fonctionnalités sont ajoutées ou des modifications sont apportées, les tests unitaires aident à garantir que les modifications ne cassent pas les fonctionnalités existantes.
+- `Source de documentation complémentaire` : Les tests unitaires agissent également comme une source de documentation complémentaire pour la compréhension du code. Ils fournissent des exemples concrets de la manière dont le code doit être utilisé et des attentes de sortie. Cela permet particulièrement aux développeurs débutants et aux nouveaux membres intégrant l'équipe de faciliter l'adaptation au projet.
 
 ## Test de bout en bout
 
@@ -104,13 +112,13 @@ Les tests unitaires se concentrent donc à vérifier des fonctionnalites de l'ap
 <details>
   <summary>Les dépendances</summary>
 
-| Dépendance      |                                           Lien                                           |
-| :-------------- | :--------------------------------------------------------------------------------------: |
-| Jest            |                         https://jestjs.io/docs/getting-started                           |
-| Cypress         |                     https://docs.cypress.io/guides/overview/why-cypress                  |
-| JUnit5          |                             https://www.baeldung.com/junit                               |
-| Mockito         |                                 https://site.mockito.org/                                |
-| AssertJ         |                     https://www.baeldung.com/introduction-to-assertj                     |
+| Dépendance |                        Lien                         |
+| :--------- | :-------------------------------------------------: |
+| Jest       |       https://jestjs.io/docs/getting-started        |
+| Cypress    | https://docs.cypress.io/guides/overview/why-cypress |
+| JUnit5     |           https://www.baeldung.com/junit            |
+| Mockito    |              https://site.mockito.org/              |
+| AssertJ    |  https://www.baeldung.com/introduction-to-assertj   |
 
 </details>
 </details>
@@ -286,13 +294,13 @@ Many APIs require a token (JWT), so it's best to start with authentication.
 <details>
   <summary>Dependencies</summary>
 
-| Dependency      |                                           Link                                           |
-| :-------------- | :--------------------------------------------------------------------------------------: |
-| Jest            |                         https://jestjs.io/docs/getting-started                           |
-| Cypress         |                     https://docs.cypress.io/guides/overview/why-cypress                  |
-| JUnit5          |                             https://www.baeldung.com/junit                               |
-| Mockito         |                                 https://site.mockito.org/                                |
-| AssertJ         |                     https://www.baeldung.com/introduction-to-assertj                     |
+| Dependency |                        Link                         |
+| :--------- | :-------------------------------------------------: |
+| Jest       |       https://jestjs.io/docs/getting-started        |
+| Cypress    | https://docs.cypress.io/guides/overview/why-cypress |
+| JUnit5     |           https://www.baeldung.com/junit            |
+| Mockito    |              https://site.mockito.org/              |
+| AssertJ    |  https://www.baeldung.com/introduction-to-assertj   |
 
 </details>
 </details>
