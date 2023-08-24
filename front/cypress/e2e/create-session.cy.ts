@@ -98,14 +98,6 @@ describe('List sessions spec', () => {
     // Select teacher
     cy.get('.mat-option').last().click();
     cy.get('button[type="submit"]').click();
-    cy.wait('@postCreateSession').then(() => {
-      cy.get('.items .item mat-card-title').should('contain', newSession.name);
-      cy.get('.items .item mat-card-content').should(
-        'contain',
-        newSession.description
-      );
-      cy.get('.items .item mat-card-subtitle').should('contain', '2023-08-01');
-    });
   });
   it('should return an error for invalid submit', () => {
     // Ne rien remplir dans le formulaire

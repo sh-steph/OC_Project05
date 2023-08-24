@@ -3,7 +3,7 @@
 
 # Projet Yoga App
 
-Comme vous pouvez le constater le projet est constitué d'un front-end et d'un back-end. Ce projet a été développé dans le cadre d'une formation où le front-end et le back-end sont fournis à l'étudiant pour qu'il puisse développer l'ensemble des tests unitaires et des tests de bout en bout pour les deux parties de l'application.
+Comme vous pouvez le constater le projet est constitué d'un front-end et d'un back-end. Ce projet a été développé dans le cadre d'une formation où le front-end et le back-end sont fournis à l'étudiant pour qu'il puisse développer l'ensemble des tests unitaires et des tests de bout en bout pour les deux parties de l'application ayant **pour objectif d'avoir un taux de couverture de 80% minimum**.
 
 Le front est un projet développé sur Angular 14 et le back sur Springboot 2.6.
 
@@ -44,25 +44,39 @@ Ce qui résulte à l'historique suivant à travers les différents commit détai
 <details>
   <summary>Structure des tests unitaires et des tests de bout en bout</summary>
   <details>
-    <summary>Front</summary>
 
-## Test unitaire
+## Front
 
-## Test de bout en bout
+<summary>Test unitaire</summary>
+
+Pour les tests unitaires de la partie front du projet, j'ai opté pour `Jest` étant donné que le front a été développé sur Angular.
+
+Jest est un framework de test JavaScript reconnu pour sa facilité d'utilisation et de configuration due à sa **simplicité d'exécution des tests** et des ses **fonctionnalités avancées**.
+
+Puisque Angular a une architecture basée sur les composants où l'on retouve sa logique(ts), son template(html) et son style(scss), on retrouvera également le fichier de test(spec.ts) où l'on rédigera l'ensemble de nos tests unitaires liés au composant en question.
+
+
+
+<summary>Test de bout en bout</summary>
+
+Pour les tests de bout en bout, j'ai opté pour `Cypress` due à sa **stabilité et rapidité des tests** puisqu’il utilise une architecture unique qui s'exécute directement dans le navigateur, ce qui élimine les dépendances externes et les retards liés à l'interaction avec le navigateur, mais également à ses **possibiliés des tests**  puisque comparé aux tests unitaires, Cypress prend en charge lors de ses tests les actions que peut effectuer un utilisateur. Il peut prendre en compte plusieurs actions telles que les clics, les saisies de données, la validation des formulaires, etc. Permettant donc d’effectuer des tests complets et réalistes.
+
+L'ensemble des tests de bout en bout sont répertoriés sur le path suivant `front\cypress\e2e` traitant chacun des tests une fonctionnalité importante de l'application.
 
   </details>
   <details>
-    <summary>Back</summary>
 
-## Test unitaire
+## Back
 
-## Test de bout en bout
+<summary>Test unitaire</summary>
+<summary>Test de bout en bout</summary>
 
   </details>
 </details>
 
 <details>
   <summary>Les enjeux de la mise en place des tests unitaires et des tests de bout en bout</summary>
+
 Étant donné que la partie frontend a déjà été fourni dans le cadre de la formation se concentrant donc sur la partie backend.
 
 ## Test unitaire
@@ -70,7 +84,7 @@ Ce qui résulte à l'historique suivant à travers les différents commit détai
 Les tests unitaires sont axés sur la vérification du bon fonctionnement des parties individuelles de l'application (ex: l'affichage d'un contenu si l'utilisateur a le statut d'administrateur). Les tests unitaires peuvent être des fonctions, des méthodes ou des classes. Les enjeux des tests unitaires sont les suivants :
 
  - `Isolation et détection précoce des erreurs` : Les tests unitaires permettent d'isoler chaque unité du code pour s'assurer qu'elle fonctionne correctement, indépendamment des autres parties du système. Cela facilite la détection et la résolution des erreurs à un stade précoce du développement.
- - `Régression ` : Lorsque de nouvelles fonctionnalités sont ajoutées ou des modifications sont apportées, les tests unitaires aident à garantir que les modifications ne cassent pas les fonctionnalités existantes.
+ - `Régression` : Lorsque de nouvelles fonctionnalités sont ajoutées ou des modifications sont apportées, les tests unitaires aident à garantir que les modifications ne cassent pas les fonctionnalités existantes.
  - `Source de documentation complémentaire` : Les tests unitaires agissent également comme une source de documentation complémentaire pour la compréhension du code. Ils fournissent des exemples concrets de la manière dont le code doit être utilisé et des attentes de sortie. Cela permet particulièrement aux développeurs débutants et aux nouveaux membres intégrant l'équipe de faciliter l'adaptation au projet.
 
 ## Test de bout en bout
@@ -101,7 +115,7 @@ Les tests unitaires se concentrent donc à vérifier des fonctionnalites de l'ap
 </details>
 </details>
 <details>
-  <summary>English</summary>
+  <summary> English</summary>
 
 # Yoga App project
 
