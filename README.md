@@ -45,9 +45,9 @@ Ce qui résulte à l'historique suivant à travers les différents commit détai
 
 | Fonctionnalités |                        Exemples de tests à réaliser                         |
 | :--------- | :-------------------------------------------------: |
-| Login       |       ● La connexion
-|             |● La gestion des erreurs en cas de mauvais login / password
-|             |● L’affichage d’erreur en l’absence d’un champ obligatoire        |
+| Login      |       ● La connexion
+             ● La gestion des erreurs en cas de mauvais login / password
+             ● L’affichage d’erreur en l’absence d’un champ obligatoire        |
 | Register    | https://docs.cypress.io/guides/overview/why-cypress |
 | Sessions    |           https://www.baeldung.com/junit            |
 | Informations session    |              https://site.mockito.org/              |
