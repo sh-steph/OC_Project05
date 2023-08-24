@@ -3,7 +3,7 @@
 
 # Projet Yoga App
 
-Comme vous pouvez le constater le projet est constitué d'un front-end et d'un back-end. Ce projet a été développé dans le cadre d'une formation où le front-end et le back-end sont fournis à l'étudiant pour qu'il puisse développer l'ensemble des tests unitaires et des tests de bout en bout pour les deux parties de l'application ayant **pour objectif d'avoir un taux de couverture de 80% minimum**.
+Comme vous pouvez le constater le projet est constitué d'un front-end et d'un back-end. Ce projet a été développé dans le cadre d'une formation où le front-end et le back-end sont fournis à l'étudiant pour qu'il puisse développer l'ensemble des tests unitaires et des tests de bout en bout pour les deux parties de l'application ayant **pour objectif d'avoir un taux de couverture de 80% minimum** à l'aide du plan de test.
 
 Le front est un projet développé sur Angular 14 et le back sur Springboot 2.6.
 
@@ -37,6 +37,25 @@ Bien entendu, le nombre de tickets dépendent du développement en question et d
 Ce qui résulte à l'historique suivant à travers les différents commit détaillant brièvement les modifications apportées.
 
 <img src='/ressources/images/branch-git.png' width='500'/>
+
+</details>
+
+<details>
+  <summary>Le plan de test</summary>
+
+| Fonctionnalités |                        Exemples de tests à réaliser                         |
+| :--------- | :-------------------------------------------------: |
+| Login       |       ● La connexion
+|             |● La gestion des erreurs en cas de mauvais login / password
+|             |● L’affichage d’erreur en l’absence d’un champ obligatoire        |
+| Register    | https://docs.cypress.io/guides/overview/why-cypress |
+| Sessions    |           https://www.baeldung.com/junit            |
+| Informations session    |              https://site.mockito.org/              |
+| Création session    |  https://www.baeldung.com/introduction-to-assertj   |
+| Suppression session   |  https://www.baeldung.com/introduction-to-assertj   |
+| Modification session    |  https://www.baeldung.com/introduction-to-assertj   |
+| Account    |  https://www.baeldung.com/introduction-to-assertj   |
+| Logout    |  https://www.baeldung.com/introduction-to-assertj   |
 
 </details>
 
