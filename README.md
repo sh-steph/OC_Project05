@@ -56,7 +56,7 @@ Puisque Angular a une architecture basée sur les composants où l'on retouve sa
 
 Taux de couverture des tests :
 
-<img src='/ressources/images/unit-test-front-coverage.png'/>
+<img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
 
 </details>
 <details>
@@ -72,13 +72,19 @@ L'ensemble des tests de bout en bout sont répertoriés sur le path suivant `fro
 <details>
 <summary>Test unitaire</summary>
 
+Pour les tests unitaires de la partie back du projet, j'ai opté pour `JUnit5` due à sa **compatibilité avec Java** puisque JUnit5 est spécifiquement conçu pour le langage de programmation Java, ce qui en fait un choix naturel pour les projets développés avec Spring Boot, ainsi pour ses **fonctionnalités avancées** et son **architecture modulaire** permettant donc de nombreuses possibilités de test.
+
+En plus de `Mockito` en complément des tests unitaires de JUnit5 afin de pouvoir “mock” lors des tests, c'est-à-dire simuler un objet pour imiter un comportement d’un objet réel pour les besoins des tests.
+
 Taux de couverture des tests :
 
-<img src='/ressources/images/unit-test-front-coverage.png'/>
+<img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
 
 </details>
 <details>
 <summary>Test de bout en bout</summary>
+
+Pour les tests de bout en bout de la partie back du projet, tout comme pour les test unitaires, j'ai également opté pour `JUnit5` puisque l'essentiel des tests à effectuer concernait principalement les **Request Mapping** (POST, PUT, DELETE) sur l'ensemble des contrôleurs concernés.
 
 </details>
 </details>
