@@ -66,9 +66,7 @@ Pour les tests de bout en bout, j'ai opté pour `Cypress` due à sa **stabilité
 
 L'ensemble des tests de bout en bout sont répertoriés sur le path suivant `front\cypress\e2e` traitant chacun des tests une fonctionnalité importante de l'application.
 </details>
-  </details>
   
-
 ## Back
 
 <details>
@@ -83,7 +81,7 @@ Taux de couverture des tests :
 <summary>Test de bout en bout</summary>
 
 </details>
-
+</details>
 <details>
   <summary>Les enjeux de la mise en place des tests unitaires et des tests de bout en bout</summary>
 
