@@ -43,19 +43,17 @@ Ce qui résulte à l'historique suivant à travers les différents commit détai
 <details>
   <summary>Le plan de test</summary>
 
-| Fonctionnalités |                        Exemples de tests à réaliser                         |
-| :--------- | :-------------------------------------------------: |
-| Login      |       ● La connexion
-             ● La gestion des erreurs en cas de mauvais login / password
-             ● L’affichage d’erreur en l’absence d’un champ obligatoire        |
-| Register    | https://docs.cypress.io/guides/overview/why-cypress |
-| Sessions    |           https://www.baeldung.com/junit            |
-| Informations session    |              https://site.mockito.org/              |
-| Création session    |  https://www.baeldung.com/introduction-to-assertj   |
-| Suppression session   |  https://www.baeldung.com/introduction-to-assertj   |
-| Modification session    |  https://www.baeldung.com/introduction-to-assertj   |
-| Account    |  https://www.baeldung.com/introduction-to-assertj   |
-| Logout    |  https://www.baeldung.com/introduction-to-assertj   |
+| Fonctionnalités      | Exemples de tests à réaliser                                                                                                                |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| Login                | - La connexion<br>- La gestion des erreurs en cas de mauvais login / password<br>- L’affichage d’erreur en l’absence d’un champ obligatoire |
+| Register             | - La création de compte<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                       |
+| Sessions             | - Affichage de la liste des sessions<br><br>- L’apparition des boutons Create et Detail si l’utilisateur connecté est un admin              |
+| Informations session | - Les informations de la session sont correctement affichées<br><br>- Le bouton Delete apparaît si l'utilisateur connecté est un admin      |
+| Création session     | - La session est créée<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                        |
+| Suppression session  | - La session est correctement supprimée                                                                                                     |
+| Modification session | - La session est modifiée<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                     |
+| Account              | - Affichage des informations de l’utilisateur                                                                                               |
+| Logout               | - La déconnexion de l’utilisateur   
 
 </details>
 
