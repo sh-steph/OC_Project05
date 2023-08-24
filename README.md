@@ -43,12 +43,14 @@ Ce qui résulte à l'historique suivant à travers les différents commit détai
 <details>
   <summary>Le plan de test</summary>
 
+### Objectif : réaliser 80 % de couverture de test
+
 | Fonctionnalités      | Exemples de tests à réaliser                                                                                                                |
 |----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | Login                | - La connexion<br>- La gestion des erreurs en cas de mauvais login / password<br>- L’affichage d’erreur en l’absence d’un champ obligatoire |
 | Register             | - La création de compte<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                       |
-| Sessions             | - Affichage de la liste des sessions<br><br>- L’apparition des boutons Create et Detail si l’utilisateur connecté est un admin              |
-| Informations session | - Les informations de la session sont correctement affichées<br><br>- Le bouton Delete apparaît si l'utilisateur connecté est un admin      |
+| Sessions             | - Affichage de la liste des sessions<br>- L’apparition des boutons Create et Detail si l’utilisateur connecté est un admin              |
+| Informations session | - Les informations de la session sont correctement affichées<br>- Le bouton Delete apparaît si l'utilisateur connecté est un admin      |
 | Création session     | - La session est créée<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                        |
 | Suppression session  | - La session est correctement supprimée                                                                                                     |
 | Modification session | - La session est modifiée<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                     |
