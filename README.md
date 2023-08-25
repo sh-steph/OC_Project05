@@ -49,8 +49,8 @@ Ce qui résulte à l'historique suivant à travers les différents commit détai
 |----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | Login                | - La connexion<br>- La gestion des erreurs en cas de mauvais login / password<br>- L’affichage d’erreur en l’absence d’un champ obligatoire |
 | Register             | - La création de compte<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                       |
-| Sessions             | - Affichage de la liste des sessions<br>- L’apparition des boutons Create et Detail si l’utilisateur connecté est un admin              |
-| Informations session | - Les informations de la session sont correctement affichées<br>- Le bouton Delete apparaît si l'utilisateur connecté est un admin      |
+| Sessions             | - Affichage de la liste des sessions<br>- L’apparition des boutons Create et Detail si l’utilisateur connecté est un admin                  |
+| Informations session | - Les informations de la session sont correctement affichées<br>- Le bouton Delete apparaît si l'utilisateur connecté est un admin          |
 | Création session     | - La session est créée<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                        |
 | Suppression session  | - La session est correctement supprimée                                                                                                     |
 | Modification session | - La session est modifiée<br>- L’affichage d’erreur en l’absence d’un champ obligatoire                                                     |
@@ -64,8 +64,7 @@ Ce qui résulte à l'historique suivant à travers les différents commit détai
   
 
 ## Front
-<details>
-<summary>Test unitaire</summary>
+### Test unitaire
 
 Pour les tests unitaires de la partie front du projet, j'ai opté pour `Jest` étant donné que le front a été développé sur Angular.
 
@@ -77,19 +76,17 @@ Taux de couverture des tests :
 
 <img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
 
-</details>
-<details>
-<summary>Test de bout en bout</summary>
+
+
+### Test de bout en bout
 
 Pour les tests de bout en bout, j'ai opté pour `Cypress` due à sa **stabilité et rapidité des tests** puisqu’il utilise une architecture unique qui s'exécute directement dans le navigateur, ce qui élimine les dépendances externes et les retards liés à l'interaction avec le navigateur, mais également à ses **possibiliés des tests** puisque comparé aux tests unitaires, Cypress prend en charge lors de ses tests les actions que peut effectuer un utilisateur. Il peut prendre en compte plusieurs actions telles que les clics, les saisies de données, la validation des formulaires, etc. Permettant donc d’effectuer des tests complets et réalistes.
 
 L'ensemble des tests de bout en bout sont répertoriés sur le path suivant `front\cypress\e2e` traitant chacun des tests une fonctionnalité importante de l'application.
-</details>
+
   
 ## Back
-
-<details>
-<summary>Test unitaire</summary>
+### Test unitaire
 
 Pour les tests unitaires de la partie back du projet, j'ai opté pour `JUnit5` due à sa **compatibilité avec Java** puisque JUnit5 est spécifiquement conçu pour le langage de programmation Java, ce qui en fait un choix naturel pour les projets développés avec Spring Boot, ainsi pour ses **fonctionnalités avancées** et son **architecture modulaire** permettant donc de nombreuses possibilités de test.
 
@@ -99,13 +96,10 @@ Taux de couverture des tests :
 
 <img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
 
-</details>
-<details>
-<summary>Test de bout en bout</summary>
+### Test de bout en bout
 
 Pour les tests de bout en bout de la partie back du projet, tout comme pour les test unitaires, j'ai également opté pour `JUnit5` puisque l'essentiel des tests à effectuer concernait principalement les **Request Mapping** (POST, PUT, DELETE) sur l'ensemble des contrôleurs concernés.
 
-</details>
 </details>
 <details>
   <summary>Les enjeux de la mise en place des tests unitaires et des tests de bout en bout</summary>
