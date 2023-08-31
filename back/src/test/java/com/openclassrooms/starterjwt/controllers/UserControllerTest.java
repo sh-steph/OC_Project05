@@ -1,6 +1,5 @@
 package com.openclassrooms.starterjwt.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.openclassrooms.starterjwt.payload.request.LoginRequest;
 import org.junit.jupiter.api.AfterEach;
@@ -16,14 +15,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static com.openclassrooms.starterjwt.controllers.AuthControllerTest.asJsonString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest()
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-class TeacherControllerTest {
+class UserControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -64,7 +64,7 @@ class TeacherControllerTest {
     void findByIdTest() throws Exception{
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
-                        .get("/api/teacher/{teacherId}", 1)
+                        .get("/api/user/{userId}", 1)
                         .header("Authorization", getType + " " +getToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -73,22 +73,14 @@ class TeacherControllerTest {
     }
 
     @Test
-    void findAllTest() throws Exception{
+    void deleteUserTest() throws Exception{
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
-                        .get("/api/teacher")
+                        .delete("/api/user/{userId}", 3)
                         .header("Authorization", getType + " " +getToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
-    }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }
