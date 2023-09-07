@@ -3,9 +3,7 @@ package com.openclassrooms.starterjwt.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.openclassrooms.starterjwt.payload.request.LoginRequest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest()
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
 class TeacherControllerTest {
 
@@ -30,15 +29,8 @@ class TeacherControllerTest {
     private String getType;
     private String getToken;
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
+    @Order(1)
     public void authenticateUserTest() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail("yoga@studio.com");
@@ -61,6 +53,7 @@ class TeacherControllerTest {
     }
 
     @Test
+    @Order(2)
     void findByIdTest() throws Exception{
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -73,6 +66,7 @@ class TeacherControllerTest {
     }
 
     @Test
+    @Order(3)
     void findAllTest() throws Exception{
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders

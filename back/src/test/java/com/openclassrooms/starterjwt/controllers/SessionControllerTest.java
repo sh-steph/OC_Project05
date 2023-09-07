@@ -5,14 +5,14 @@ import com.openclassrooms.starterjwt.dto.SessionDto;
 import com.openclassrooms.starterjwt.models.Teacher;
 import com.openclassrooms.starterjwt.models.User;
 import com.openclassrooms.starterjwt.payload.request.LoginRequest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -34,6 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest()
 @AutoConfigureMockMvc
+@DirtiesContext
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
 class SessionControllerTest {
 
@@ -113,6 +115,7 @@ class SessionControllerTest {
     }
 
     @Test
+    @Order(1)
     public void authenticateUserTest() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail("yoga@studio.com");
@@ -135,6 +138,7 @@ class SessionControllerTest {
     }
 
     @Test
+    @Order(2)
     void createSessionTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -148,6 +152,7 @@ class SessionControllerTest {
     }
 
     @Test
+    @Order(3)
     void findSessionByIdTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -160,6 +165,7 @@ class SessionControllerTest {
     }
 
     @Test
+    @Order(4)
     void findAllSessionsTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -172,6 +178,7 @@ class SessionControllerTest {
     }
 
     @Test
+    @Order(5)
     void updateSessionTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -185,10 +192,11 @@ class SessionControllerTest {
     }
 
     @Test
+    @Order(6)
     void participateSessionTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
-                        .post("/api/session/{sessionId}/participate/{userId}", 2,1)
+                        .post("/api/session/{sessionId}/participate/{userId}", 1,1)
                         .header("Authorization", getType + " " +getToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -197,10 +205,12 @@ class SessionControllerTest {
     }
 
     @Test
+    @Order(7)
     void noLongerParticipateSessionTest() throws Exception {
         authenticateUserTest();
+//        participateSessionTest();
         mvc.perform(MockMvcRequestBuilders
-                        .delete("/api/session/{sessionId}/participate/{userId}", 2,1)
+                        .delete("/api/session/{sessionId}/participate/{userId}", 1,1)
                         .header("Authorization", getType + " " +getToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -209,14 +219,21 @@ class SessionControllerTest {
     }
 
     @Test
+    @Order(8)
     void deleteSessionTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
-                        .delete("/api/session/{sessionId}", 3)
+                        .delete("/api/session/{sessionId}", 1)
                         .header("Authorization", getType + " " +getToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(9)
+    @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:cleanDB.sql")
+    public void resetDatabase() {
     }
 }

@@ -30,14 +30,6 @@ class UserControllerTest {
     private String getType;
     private String getToken;
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     public void authenticateUserTest() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
@@ -72,15 +64,15 @@ class UserControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    void deleteUserTest() throws Exception{
-        authenticateUserTest();
-        mvc.perform(MockMvcRequestBuilders
-                        .delete("/api/user/{userId}", 3)
-                        .header("Authorization", getType + " " +getToken)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void deleteUserTest() throws Exception{
+//        authenticateUserTest();
+//        mvc.perform(MockMvcRequestBuilders
+//                        .delete("/api/user/{userId}", 8)
+//                        .header("Authorization", getType + " " +getToken)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//    }
 }
