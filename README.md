@@ -72,7 +72,7 @@ Jest est un framework de test JavaScript reconnu pour sa facilité d'utilisation
 
 Puisque Angular a une architecture basée sur les composants où l'on retouve sa logique(ts), son template(html) et son style(scss), on retrouvera également le fichier de test(spec.ts) où l'on rédigera l'ensemble de nos tests unitaires liés au composant en question.
 
-Taux de couverture des tests :
+Taux de couverture des tests unitaires:
 
 <img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
 
@@ -84,6 +84,10 @@ Pour les tests de bout en bout, j'ai opté pour `Cypress` due à sa **stabilité
 
 L'ensemble des tests de bout en bout sont répertoriés sur le path suivant `front\cypress\e2e` traitant chacun des tests une fonctionnalité importante de l'application.
 
+Taux de couverture des tests de bout en bout :
+
+<img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
+
   
 ## Back
 ### Test unitaire
@@ -92,13 +96,17 @@ Pour les tests unitaires de la partie back du projet, j'ai opté pour `JUnit5` d
 
 En plus de `Mockito` en complément des tests unitaires de JUnit5 afin de pouvoir “mock” lors des tests, c'est-à-dire simuler un objet pour imiter un comportement d’un objet réel pour les besoins des tests.
 
-Taux de couverture des tests :
+Taux de couverture des tests unitaires:
 
-<img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
+<img src='/ressources/images/unit-test-back-coverage.png' width='500'/>
 
 ### Test de bout en bout
 
-Pour les tests de bout en bout de la partie back du projet, tout comme pour les test unitaires, j'ai également opté pour `JUnit5` puisque l'essentiel des tests à effectuer concernait principalement les **Request Mapping** (POST, PUT, DELETE) sur l'ensemble des contrôleurs concernés.
+Pour les tests de bout en bout de la partie back du projet, tout comme pour les test unitaires, j'ai également opté pour `JUnit5` puisque l'essentiel des tests à effectuer concernait principalement les **Request Mapping** (POST, PUT, DELETE) sur l'ensemble des contrôleurs concernés en reproduisant le comportement d'un utilisateur.
+
+Taux de couverture des tests de bout en bout :
+
+<img src='/ressources/images/e2e-test-back-coverage.png' width='500'/>
 
 </details>
 <details>
