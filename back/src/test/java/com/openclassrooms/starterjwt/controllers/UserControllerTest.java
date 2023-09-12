@@ -104,6 +104,71 @@ class UserControllerTest {
 
     @Test
     @Order(4)
+    void findByIdNotFoundTest() throws Exception{
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/api/user/{userId}", 99)
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Order(5)
+    void findByIdBadRequestTest() throws Exception{
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/api/user/{userId}", "Bad Request")
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(6)
+    void deleteUserNotFoundTest() throws Exception{
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/api/user/{userId}", 99)
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Order(7)
+    void deleteUserUnauthorizedTest() throws Exception{
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/api/user/{userId}", 1)
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @Order(8)
+    void deleteUserBadRequestTest() throws Exception{
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/api/user/{userId}", "Bad Request")
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(9)
     void deleteUserTest() throws Exception{
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -116,7 +181,7 @@ class UserControllerTest {
     }
 
     @Test
-    @Order(5)
+    @Order(10)
     @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:cleanDB.sql")
     public void resetDatabase() {
     }
