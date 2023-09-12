@@ -13,10 +13,8 @@ Pour la partie back du projet, il vous faudra tout d'abord exécuter la commande
 
 Avant de `build` et `run` l'application, veuillez tout d'abord paramétrer les **variables d'environnements** de votre IDE afin que l'application puisse interagir avec la **base de données** dont les variables en question se situent dans le fichier **application.properties** (les valeurs sont paramétrées aux préalables dans le **docker-compose.yml**).
 
-DB_USER=`user`
-DB_PASSWORD=`password`
-
-Exemple sur IntelliJ IDEA: DB_USER=oc_user;DB_PASSWORD=oc_pwd
+DB_USER=`oc_user`
+DB_PASSWORD=`oc_pwd`
 
 <img src='/ressources/images/IntelliJ.png' width='500'/>
 
@@ -90,6 +88,14 @@ Taux de couverture des tests de bout en bout :
 
   
 ## Back
+
+Naviguez jusqu'au répertoire **back** et executez la commande sur votre terminal **mvn clean test**.
+Cela créera un rapport statistique de l'ensemble des tests du back à l'aide de `Jacoco` dont vous retrouverez dans le dossier suivant **\back\target\site\jacoco\index.html**
+
+Taux de couverture global des tests :
+
+<img src='/ressources/images/e2e-global-back-coverage.png' width='500'/>
+
 ### Test unitaire
 
 Pour les tests unitaires de la partie back du projet, j'ai opté pour `JUnit5` due à sa **compatibilité avec Java** puisque JUnit5 est spécifiquement conçu pour le langage de programmation Java, ce qui en fait un choix naturel pour les projets développés avec Spring Boot, ainsi pour ses **fonctionnalités avancées** et son **architecture modulaire** permettant donc de nombreuses possibilités de test.
