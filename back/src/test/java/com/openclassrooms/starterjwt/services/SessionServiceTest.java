@@ -1,5 +1,7 @@
 package com.openclassrooms.starterjwt.services;
 
+import com.openclassrooms.starterjwt.exception.BadRequestException;
+import com.openclassrooms.starterjwt.exception.NotFoundException;
 import com.openclassrooms.starterjwt.models.Session;
 import com.openclassrooms.starterjwt.models.Teacher;
 import com.openclassrooms.starterjwt.models.User;
@@ -17,9 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,7 +81,7 @@ class SessionServiceTest {
                 .name("Yoga session 1")
                 .date(date)
                 .teacher(teacher)
-                .users(null)
+                .users(new ArrayList<>())
                 .description("Yoga session1 description 1")
                 .build();
         session2 = Session.builder()
@@ -166,6 +166,35 @@ class SessionServiceTest {
         verify(sessionRepository, times(1)).save(session1);
     }
 
+    @DisplayName("JUnit test User participate session not found")
+    @Test
+    void participateSessionNotFoundExceptionTest() {
+        when(sessionRepository.findById(session1.getId())).thenReturn(Optional.empty());
+        when(userRepository.findById(user1.getId())).thenReturn(Optional.of(user1));
+
+        assertThrows(NotFoundException.class, () -> {
+            sessionService.participate(session1.getId(), user1.getId());
+        });
+        // Check if the method is never called
+        verify(sessionRepository, never()).save(any());
+    }
+
+    @DisplayName("JUnit test User participate session bad request")
+    @Test
+    void participateSessionBadRequestExceptionTest() {
+        when(sessionRepository.findById(session1.getId())).thenReturn(Optional.of(session1));
+        when(userRepository.findById(user1.getId())).thenReturn(Optional.of(user1));
+        // already have a user
+        session1.getUsers().add(user1);
+
+        assertThrows(BadRequestException.class, () -> {
+            sessionService.participate(session1.getId(), user1.getId());
+        });
+
+        // Check if the method is never called
+        verify(sessionRepository, never()).save(any());
+    }
+
     @DisplayName("JUnit test User2 don't participate on session2 anymore")
     @Test
     void noLongerParticipateSessionTest() {
@@ -175,5 +204,31 @@ class SessionServiceTest {
 
         assertFalse(session2.getUsers().contains(user2));
         verify(sessionRepository, times(1)).save(session2);
+    }
+
+    @DisplayName("JUnit test User don't participate on session not found")
+    @Test
+    void noLongerParticipateSessionNotFoundExceptionTest() {
+        when(sessionRepository.findById(session2.getId())).thenReturn(Optional.empty());
+        Long nonExistentSessionId = null;
+
+        assertThrows(NotFoundException.class, () -> {
+            sessionService.noLongerParticipate(session2.getId(), nonExistentSessionId);
+        });
+
+        verify(sessionRepository, never()).save(any());
+    }
+
+    @DisplayName("JUnit test User don't participate on session bad request")
+    @Test
+    void noLongerParticipateSessionBadRequestExceptionTest() {
+        when(sessionRepository.findById(session2.getId())).thenReturn(Optional.of(session2));
+        Long alreadyExistUser = 999L;
+
+        assertThrows(BadRequestException.class, () -> {
+            sessionService.noLongerParticipate(session2.getId(), alreadyExistUser);
+        });
+
+        verify(sessionRepository, never()).save(any());
     }
 }
