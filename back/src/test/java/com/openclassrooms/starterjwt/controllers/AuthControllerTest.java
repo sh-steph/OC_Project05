@@ -1,6 +1,7 @@
 package com.openclassrooms.starterjwt.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import com.openclassrooms.starterjwt.models.User;
 import com.openclassrooms.starterjwt.payload.request.LoginRequest;
 import com.openclassrooms.starterjwt.payload.request.SignupRequest;
@@ -17,10 +18,15 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.text.ParseException;
 
+import static com.openclassrooms.starterjwt.controllers.TeacherControllerTest.asJsonString;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -65,6 +71,22 @@ class AuthControllerTest {
 
     @Test
     @Order(2)
+    public void registerUserBadRequestTest() throws Exception {
+        SignupRequest signupRequest = new SignupRequest();
+        signupRequest.setEmail("yoga@studio.com");
+        signupRequest.setFirstName(user.getFirstName());
+        signupRequest.setLastName(user.getLastName());
+        signupRequest.setPassword(user.getPassword());
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/api/auth/register")
+                        .content(asJsonString(signupRequest))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(3)
     public void authenticateUserTest() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail(user.getEmail());
@@ -76,11 +98,12 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(print());
+                .andDo(print())
+                .andReturn();
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:cleanDB.sql")
     public void resetDatabase() {
     }
