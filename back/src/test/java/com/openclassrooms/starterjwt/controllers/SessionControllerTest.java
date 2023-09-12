@@ -166,6 +166,32 @@ class SessionControllerTest {
 
     @Test
     @Order(4)
+    void findSessionByIdNotFoundTest() throws Exception {
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/api/session/{sessionId}", 99)
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Order(5)
+    void findSessionByIdBadRequestTest() throws Exception {
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/api/session/{sessionId}", "Bad Request")
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(6)
     void findAllSessionsTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -178,7 +204,7 @@ class SessionControllerTest {
     }
 
     @Test
-    @Order(5)
+    @Order(7)
     void updateSessionTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -192,7 +218,21 @@ class SessionControllerTest {
     }
 
     @Test
-    @Order(6)
+    @Order(8)
+    void updateSessionBadRequestTest() throws Exception {
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/api/session/{sessionId}", "Bad Request")
+                        .header("Authorization", getType + " " +getToken)
+                        .content(asJsonString(session2))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(9)
     void participateSessionTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -205,10 +245,22 @@ class SessionControllerTest {
     }
 
     @Test
-    @Order(7)
+    @Order(10)
+    void participateSessionBadRequestTest() throws Exception {
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/api/session/{sessionId}/participate/{userId}", 1, "Bad Request")
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(11)
     void noLongerParticipateSessionTest() throws Exception {
         authenticateUserTest();
-//        participateSessionTest();
         mvc.perform(MockMvcRequestBuilders
                         .delete("/api/session/{sessionId}/participate/{userId}", 1,1)
                         .header("Authorization", getType + " " +getToken)
@@ -219,7 +271,20 @@ class SessionControllerTest {
     }
 
     @Test
-    @Order(8)
+    @Order(12)
+    void noLongerParticipateSessionBadRequestTest() throws Exception {
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/api/session/{sessionId}/participate/{userId}", 1,"BadRequest")
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(13)
     void deleteSessionTest() throws Exception {
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
@@ -232,7 +297,33 @@ class SessionControllerTest {
     }
 
     @Test
-    @Order(9)
+    @Order(14)
+    void deleteSessionNotFoundTest() throws Exception {
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/api/session/{sessionId}", 99)
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Order(15)
+    void deleteSessionBadRequestTest() throws Exception {
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/api/session/{sessionId}", "Bad Request")
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(16)
     @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:cleanDB.sql")
     public void resetDatabase() {
     }
