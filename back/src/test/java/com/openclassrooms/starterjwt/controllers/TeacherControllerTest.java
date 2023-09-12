@@ -67,6 +67,32 @@ class TeacherControllerTest {
 
     @Test
     @Order(3)
+    void findByIdTestNotFound() throws Exception{
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/api/teacher/{teacherId}", 99)
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Order(4)
+    void findByIdTestBadRequest() throws Exception{
+        authenticateUserTest();
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/api/teacher/{teacherId}", "string")
+                        .header("Authorization", getType + " " +getToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(5)
     void findAllTest() throws Exception{
         authenticateUserTest();
         mvc.perform(MockMvcRequestBuilders
