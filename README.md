@@ -16,8 +16,6 @@ Avant de `build` et `run` l'application, veuillez tout d'abord paramétrer les *
 DB_USER=`oc_user`
 DB_PASSWORD=`oc_pwd`
 
-<img src='/ressources/images/IntelliJ.png' width='500'/>
-
 Pour la partie front du projet, aller dans le dossier **front-end** pour générer le **node_module** en exécutant la commande suivante `npm install`.
 Une fois l'installation complète, executer la commande `npm start` pour exécuter l'application et naviguer sur l'URL fourni (l'URL par défaut `http://localhost:4200/`).
 
@@ -78,7 +76,9 @@ Taux de couverture des tests unitaires:
 
 ### Test de bout en bout
 
-Pour les tests de bout en bout, j'ai opté pour `Cypress` due à sa **stabilité et rapidité des tests** puisqu’il utilise une architecture unique qui s'exécute directement dans le navigateur, ce qui élimine les dépendances externes et les retards liés à l'interaction avec le navigateur, mais également à ses **possibiliés des tests** puisque comparé aux tests unitaires, Cypress prend en charge lors de ses tests les actions que peut effectuer un utilisateur. Il peut prendre en compte plusieurs actions telles que les clics, les saisies de données, la validation des formulaires, etc. Permettant donc d’effectuer des tests complets et réalistes.
+Pour les tests de bout en bout, j'ai opté pour `Cypress` due à sa **stabilité et rapidité des tests** puisqu’il utilise une architecture unique qui s'exécute directement dans le navigateur, ce qui élimine les dépendances externes et les retards liés à l'interaction avec le navigateur, mais également à ses **possibiliés des tests** puisque comparé aux tests unitaires, Cypress prend en charge lors de ses tests les actions que peut effectuer un utilisateur.
+Il peut prendre en compte plusieurs actions telles que les clics, les saisies de données, la validation des formulaires, etc.
+Permettant donc d’effectuer des tests complets et réalistes.
 
 L'ensemble des tests de bout en bout sont répertoriés sur le path suivant `front\cypress\e2e` traitant chacun des tests une fonctionnalité importante de l'application.
 
@@ -89,8 +89,8 @@ Taux de couverture des tests de bout en bout :
   
 ## Back
 
-Naviguez jusqu'au répertoire **back** et executez la commande sur votre terminal **mvn clean test**.
-Cela créera un rapport statistique de l'ensemble des tests du back à l'aide de `Jacoco` dont vous retrouverez dans le dossier suivant **\back\target\site\jacoco\index.html**
+Naviguez jusqu'au répertoire **back** et executez la commande sur votre terminal `mvn clean test`.
+Cela créera un rapport statistique de l'ensemble des tests du back à l'aide de `Jacoco` dont vous retrouverez dans le dossier suivant `\back\target\site\jacoco\index.html`
 
 Taux de couverture global des tests :
 
@@ -152,178 +152,141 @@ Les tests unitaires se concentrent donc à vérifier des fonctionnalites de l'ap
 | JUnit5     |           https://www.baeldung.com/junit            |
 | Mockito    |              https://site.mockito.org/              |
 | AssertJ    |  https://www.baeldung.com/introduction-to-assertj   |
+| Jacoco     |          https://www.baeldung.com/jacoco            |
 
 </details>
 </details>
+
 <details>
-  <summary> English</summary>
+  <summary>English</summary>
 
 # Yoga App project
 
 As you can see, the project consists of a front-end and a back-end. This project was developed as part of a training program in which the front-end is provided to the student so that I develop the entire back-end and set up the connection between the front-end and the back-end.
 
-The front-end is a project developed on Angular 14 and the back-end on Springboot 2.7.
+The front-end is a project developed on Angular 14 and the back-end on Springboot 2.6.
 
 ## Where to start ?
 
 For the back end of the project, you'll first need to run the following command `docker-compose up` at the project root to generate the database using docker.
 Then import the **back-end** folder into your dedicated IDE (IntelliJ, Eclipse...), `build` and `run` the application.
 
+Before `build` and `run` the application, please first set the **environment variables** in your IDE so that the application can interact with the **database** whose variables are located in the **application.properties** file (the values are set beforehand in the **docker-compose.yml**).
+
+DB_USER=`oc_user`
+DB_PASSWORD=`oc_pwd`
+
 For the front-end part of the project, go to the **front-end** folder to generate the **node_module** by executing the following command `npm install`.
 Once the installation is complete, run the command `npm start` to execute the application and navigate to the URL provided (the default URL is `http://localhost:4200/`).
 
-Before `build` and `run` the application, please first set the **environment variables** in your IDE so that the application can interact with the **database** whose variables are located in the **application.properties** file (the values are set beforehand in the **docker-compose.yml**).
-
-DB_URL=jdbc:mysql://localhost:`port`/`db_name`
-DB_USER=`user`
-DB_PASSWORD=`password`
-
-Example on IntelliJ IDEA: DB_URL=jdbc:mysql://localhost:3306/oc_chatop_db;DB_USER=oc_user;DB_PASSWORD=oc_pwd
-
-<img src='/ressources/images/IntelliJ.png' width='500'/>
+</details>
 
 <details>
-  <summary>Development organization</summary>
+  <summary>Testing plan</summary>
 
-## Kanban
+### Objectif : réaliser 80 % de couverture de test
 
-<img src='/ressources/images/Kanban.png' width='500'/>
-
-Following a reading of the specifications, each **issue** corresponds to an application feature and therefore to a specific branch, the first ticket number of which corresponds to a part of the application.
-
-Of course, the number of tickets depends on the development and its progress (number of additional functions required, bugs encountered...).
-
-This results in the following history through the various commits, briefly detailing the modifications made.
-
-<img src='/ressources/images/branch-git.png' width='500'/>
+| Fonctionnalités      | Exemples de tests à réaliser                                                                                                                |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| Login                | - Login<br>- Error handling in case of wrong login / password<br>- Error display in case of missing mandatory field                         |
+| Register             | - Account creation<br>- Error display when a mandatory field is missing                                                                     |
+| Sessions             | - Session list display<br>- Create and Detail buttons appear if the logged-in user is an admin                                              |
+| Session Information  | - Session information is correctly displayed<br>- Delete button appears if the logged-in user is an admin                                   |
+| Create session       | - The session is created<br>- Error display in the absence of a mandatory field                                                             |
+| Delete session       | - Session successfully deleted                                                                                                              |
+| Update session       | - The session is modified<br>- Error display in the absence of a mandatory field                                                            |
+| Account              | - User information display                                                                                                                  |
+| Logout               | - User logout   
 
 </details>
 
 <details>
-  <summary>Project architecture structure</summary>
+  <summary>Structure of unit tests and end-to-end tests</summary>
+  
 
+## Front
+### Unit test
+
+For unit tests on the front end of the project, I opted for `Jest`, given that the front end was developed on Angular.
+
+Jest is a JavaScript testing framework renowned for its ease of use and configuration, thanks to its **simplicity of test execution** and **advanced features**.
+
+Since Angular has a component-based architecture where we find its logic(ts), template(html) and style(scss), we'll also find the test file(spec.ts) where we'll write all our unit tests linked to the component in question.
+
+Unit test coverage rate:
+
+<img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
+
+
+
+### End-to-end test
+
+For end-to-end testing, I opted for `Cypress` due to its **stability and speed of testing** since it uses a unique architecture that runs directly in the browser, eliminating external dependencies and delays related to browser interaction, but also to its **possibility of testing** since, compared to unit testing, Cypress takes into account the actions that a user can perform in its tests.
+It can take multiple actions such as clicks, data entry, form validation, etc., enabling comprehensive and realistic testing.
+Allowing you to carry out comprehensive and realistic tests.
+
+All the end-to-end tests are listed on the following path `frontcypress\e2e`, each dealing with an important feature of the application.
+
+End-to-end test coverage rate :
+
+<img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
+
+  
+## Back
+
+Navigate to the **back** directory and run the terminal command `mvn clean test`.
+This will create a statistical report of all the tests in the back using `Jacoco`, which you'll find in the following folder `/back/target/site/jacoco/index.html`.
+
+Overall test coverage rate :
+
+<img src='/ressources/images/e2e-global-back-coverage.png' width='500'/>
+
+### Unit test
+
+For the unit testing of the back end of the project, I opted for `JUnit5` due to its **compatibility with Java** since JUnit5 is specifically designed for the Java programming language, making it a natural choice for projects developed with Spring Boot, as well as for its **advanced features** and **modular architecture** thus enabling numerous testing possibilities.
+
+In addition to `Mockito` as a complement to JUnit5's unit tests, in order to be able to "mock" during testing, it will simulate an object to mimic the behavior of a real object for testing purposes.
+
+Unit test coverage rate:
+
+<img src='/ressources/images/unit-test-back-coverage.png' width='500'/>
+
+### End-to-end test
+
+For the end-to-end testing of the back end, as for the unit tests, I also opted for `JUnit5`, since most of the tests to be carried out concerned **Request Mapping** (POST, PUT, DELETE) on all the controllers concerned, reproducing the behavior of a user.
+
+End-to-end test coverage rate :
+
+<img src='/ressources/images/e2e-test-back-coverage.png' width='500'/>
+
+</details>
 <details>
-  <summary>Tree</summary>
-back-end
-├── HELP.md
-├── images
-│   └── rentals
-├── lib
-│   └── webjars-locator-core-0.48.jar
-├── mvnw
-├── mvnw.cmd
-├── pom.xml
-├── src
-│   └── main
-│       ├── java
-│       │   └── com
-│       │       └── openclassrooms
-│       │           └── occhatop
-│       │               ├── OcChatopApplication.java
-│       │               ├── configuration
-│       │               │   ├── AuthEntryPointJwt.java
-│       │               │   ├── JwtAuthenticationFilter.java
-│       │               │   ├── SecurityConfig.java
-│       │               │   └── SwaggerConfiguration.java
-│       │               ├── controllers
-│       │               │   ├── AuthenticationController.java
-│       │               │   ├── ImageController.java
-│       │               │   ├── MessageController.java
-│       │               │   ├── RentalController.java
-│       │               │   └── UserController.java
-│       │               ├── dao
-│       │               │   ├── AuthenticationRequest.java
-│       │               │   ├── AuthenticationResponse.java
-│       │               │   └── RegisterRequest.java
-│       │               ├── dto
-│       │               │   ├── RentalDTO.java
-│       │               │   └── UserDTO.java
-│       │               ├── exceptions
-│       │               │   ├── RentalNotFoundException.java
-│       │               │   ├── UserIdNotFoundException.java
-│       │               │   └── UserNotFoundException.java
-│       │               ├── models
-│       │               │   ├── authentication
-│       │               │   │   └── User.java
-│       │               │   ├── message
-│       │               │   │   └── Message.java
-│       │               │   └── rental
-│       │               │       └── Rental.java
-│       │               ├── repositories
-│       │               │   ├── MessageRepository.java
-│       │               │   ├── RentalRepository.java
-│       │               │   └── UserRepository.java
-│       │               └── services
-│       │                   ├── AuthenticationService.java
-│       │                   ├── JwtService.java
-│       │                   ├── MessageService.java
-│       │                   ├── RentalService.java
-│       │                   └── UserService.java
-│       └── resources
-│           ├── application.properties
-│           ├── static
-│           └── templates
-</details>
+  <summary>The challenges of implementing unit testing and end-to-end testing</summary>
 
-As you can see, the architecture of the project follows a fairly common structure for applications developed with Spring Boot.
+Since the front-end has already been covered in the training course, we'll concentrate on the back-end.
 
-- `configuration`: This folder contains the **configurations** specific to the application, in particular the security configuration. In this project, a security system is set up to filter access to certain URLs according to users, using the JSON Web Token (JWT).
+## Unit test
 
-- `controllers`: This folder contains the **controller** classes that manage API mapping. Controllers are responsible for receiving HTTP requests, processing the data and returning the appropriate responses.
+Unit tests focus on verifying the correct operation of individual parts of the application (e.g. displaying content if the user has administrator status). Unit tests can be functions, methods or classes. The challenges of unit testing are as follows:
 
-- `models`: This folder contains the **models** classes, which represent the application's business entities. Models are generally Java classes with annotations for data persistence and validation.
+- `Isolation and early error detection`: Unit testing allows you to isolate each unit of code to ensure that it functions correctly, independently of other parts of the system. This facilitates the detection and resolution of errors at an early stage of development.
+- `Regression`: When new features are added or modifications are made, unit tests help to ensure that changes don't break existing functionality.
+- `Additional documentation`: Unit tests also act as an additional source of documentation for understanding the code. They provide concrete examples of how the code is to be used and what the output expectations are. This is particularly useful for novice developers and new team members, making it easier to adapt to the project.
 
-- `repositories`: This folder contains the **repository interfaces** that define data persistence operations. Repository interfaces are used to interact with the database or other data storage system (the application currently uses MySQL).
+## End-to-end test
 
-- `services`: This folder contains the **services** classes that implement the application's business logic. Services are responsible for manipulating data, coordinating operations and executing business rules such as registering a new user, generating the token for authentication and updating user announcements.
+End-to-end testing, also known as functional testing, evaluates the behavior of an application as a whole, simulating user interactions through a pre-defined scenario. The challenges of end-to-end testing are as follows:
+
+- `User flow validation`: End-to-end testing verifies that all parts of the application work together coherently to meet the user's needs. This ensures that the expected user flow is respected.
+- `Detecting integration problems`: Integration errors between different parts of the application, such as communication between the front-end and back-end, can be detected by end-to-end testing.
+- `User quality guarantee`: End-to-end testing is essential to ensure that the application functions correctly in an environment similar to that used by end-users. This helps guarantee a better user experience.
+- `Identifying performance problems`: End-to-end testing can reveal performance and efficiency problems that are often not visible in unit tests.
+
+## Summary
+
+Unit tests concentrate on checking individual application functions, while end-to-end tests focus on validating the application as a whole. Both types of testing are essential to guarantee application quality, detect errors at different levels and offer greater confidence in the application's correct operation, particularly for large-scale projects.
 
 </details>
-
-<details>
-  <summary>Application development challenges</summary>
-
-Since the frontend has already been provided as part of the training course, we'll concentrate on the backend.
-This project addresses the following issues:
-
-## Setting up authentication with JSON Web Token (JWT)
-
-The authentication is at the heart of the vast majority of applications on all platforms, this project uses **JSON Web Token** (JWT) to secure access to certain API resources. JWTs offer a secure method of exchanging authentication information between client and server, while avoiding the need to store user state on the server.
-
-The JWT offers a number of advantages:
-
-- `Security`: JWTs are encrypted and digitally signed, guaranteeing data integrity and preventing unauthorized alteration.
-
-- `Information passing`: JWTs enable additional information to be transmitted in the token itself, avoiding the need to consult the database each time a protected access request is made.
-
-- `Stateless`: JWTs are "stateless", meaning that the server doesn't need to store the user's state. This means greater scalability and fewer database calls.
-
-Authentication process diagram :
-
-<img src='/ressources/images/JWT-works.png' width='500'/>
-
-## Mapping API database interaction
-
-This project uses API mappings to enable interaction with the database. API mappings define API endpoints and specify HTTP operations (GET, POST, PUT, DELETE) so that the frontend can interact with the database.
-
-Here are a few examples of commonly used API mappings:
-
-- `GET`: Used to retrieve data from the database. In the context of this project, it is used to retrieve information about the authenticated user. You can use the endpoint `/api/auth/me` with the HTTP GET method.
-
-- `POST`: Used to create new resources in the database. In the context of the project, it is used to register a new user or add a new advert. You can use the `/auth/register` endpoint with the HTTP POST method and supply the data of the future user in the body of the request.
-
-- `PUT`: Used to update existing resources in the database. In the context of the project it is used to modify the content of an advert, you can use the endpoint `/api/rentals/{id}` with the HTTP PUT method and supply the new advert data in the request body.
-
-- `DELETE`: Used to remove resources from the database. It is not used in this project.
-
-API mappings are used to expose the application's functionality to clients, so that any other application developed on a web, mobile or other service framework can interact with it.
-
-## Swagger
-
-You can view and experiment with all the APIs through Swagger through the following link `http://localhost:3000/swagger-ui/index.html` when the application is running.
-Many APIs require a token (JWT), so it's best to start with authentication.
-
-</details>
-
 <details>
   <summary>Dependencies</summary>
 
@@ -334,6 +297,7 @@ Many APIs require a token (JWT), so it's best to start with authentication.
 | JUnit5     |           https://www.baeldung.com/junit            |
 | Mockito    |              https://site.mockito.org/              |
 | AssertJ    |  https://www.baeldung.com/introduction-to-assertj   |
+| Jacoco     |          https://www.baeldung.com/jacoco            |
 
 </details>
 </details>
