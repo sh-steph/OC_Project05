@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "0c536538-a112-43ba-8d4c-b28c1e3d3472",
-		"name": "yoga",
+		"_postman_id": "abf1bb18-e531-485a-80cd-145e6a19d26b",
+		"name": "OC_Project05",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1183177"
+		"_exporter_id": "27157241"
 	},
 	"item": [
 		{
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"yoga@studio.com\",\n    \"password\": \"test!1234\"\n}",
+							"raw": "{\r\n    \"email\": \"yoga@studio.com\",\r\n    \"password\": \"test!1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"lastName\": \"toto\",\n    \"firstName\": \"toto\",\n    \"email\": \"toto3@toto.com\",\n    \"password\": \"test!1234\"\n}",
+							"raw": "{\r\n    \"lastName\": \"toto\",\r\n    \"firstName\": \"toto\",\r\n    \"email\": \"toto3@toto.com\",\r\n    \"password\": \"test!1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -110,7 +110,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": ""
 								}
 							]
 						}
@@ -160,7 +160,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": ""
 								}
 							]
 						}
@@ -168,13 +168,13 @@
 					"response": []
 				},
 				{
-					"name": "create",
+					"name": "create session",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"session 1\",\n    \"date\": \"2012-01-01\",\n    \"teacher_id\": 5,\n    \"users\": null,\n    \"description\": \"my description\"\n}",
+							"raw": "{\r\n    \"name\": \"First session\",\r\n    \"date\": \"2023-14-09\",\r\n    \"teacher_id\": 1,\r\n    \"users\": null,\r\n    \"description\": \"my description\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -196,13 +196,13 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "update session",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"session 1\",\n    \"date\": \"2012-01-01T00:00:00.000+00:00\",\n    \"teacher_id\": 1,\n    \"description\": \"my description\",\n    \"users\": []\n}",
+							"raw": "{\r\n    \"name\": \"Session updated\",\r\n    \"date\": \"2023-15-09T00:00:00.000+00:00\",\r\n    \"teacher_id\": 1,\r\n    \"description\": \"my description updated\",\r\n    \"users\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -223,7 +223,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": ""
 								}
 							]
 						}
@@ -231,7 +231,7 @@
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "delete session",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -249,7 +249,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": ""
 								}
 							]
 						}
@@ -257,7 +257,7 @@
 					"response": []
 				},
 				{
-					"name": "participe",
+					"name": "participate session",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -277,11 +277,11 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": ""
 								},
 								{
 									"key": "userId",
-									"value": "2"
+									"value": ""
 								}
 							]
 						}
@@ -289,7 +289,7 @@
 					"response": []
 				},
 				{
-					"name": "no longer participe",
+					"name": "no longer participate session",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -309,11 +309,11 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": ""
 								},
 								{
 									"key": "userId",
-									"value": "2"
+									"value": ""
 								}
 							]
 						}
@@ -344,7 +344,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": ""
 								}
 							]
 						}
@@ -370,7 +370,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": ""
 								}
 							]
 						}
@@ -378,36 +378,6 @@
 					"response": []
 				}
 			]
-		}
-	],
-	"auth": {
-		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b2dhQHN0dWRpby5jb20iLCJpYXQiOjE2NjE3ODg0OTEsImV4cCI6MTY2MTg3NDg5MX0.ZIxe_D9aSVixqeeosAsI8_724qETl-eqGU_CwSEsumdd2VC0nWh6xZR2c3cWprOwaAeCMtNHp4OQUOcXkkxfEg",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
 		}
 	]
 }
