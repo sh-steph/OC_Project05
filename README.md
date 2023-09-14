@@ -179,6 +179,20 @@ DB_PASSWORD=`oc_pwd`
 For the front-end part of the project, go to the **front-end** folder to generate the **node_module** by executing the following command `npm install`.
 Once the installation is complete, run the command `npm start` to execute the application and navigate to the URL provided (the default URL is `http://localhost:4200/`).
 
+<details>
+  <summary>Development organization</summary>
+
+## Kanban
+
+<img src='/ressources/images/Kanban.png' width='500'/>
+
+Following a reading of the specifications, each **issue** corresponds to an application feature and therefore to a specific branch, the first ticket number of which corresponds to a part of the application.
+
+Of course, the number of tickets depends on the development and its progress (number of additional functions required, bugs encountered...).
+
+This results in the following history through the various commits, briefly detailing the modifications made.
+
+<img src='/ressources/images/branch-git.png' width='500'/>
 </details>
 
 <details>
@@ -217,8 +231,6 @@ Unit test coverage rate:
 
 <img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
 
-
-
 ### End-to-end test
 
 For end-to-end testing, I opted for `Cypress` due to its **stability and speed of testing** since it uses a unique architecture that runs directly in the browser, eliminating external dependencies and delays related to browser interaction, but also to its **possibility of testing** since, compared to unit testing, Cypress takes into account the actions that a user can perform in its tests.
@@ -231,7 +243,6 @@ End-to-end test coverage rate :
 
 <img src='/ressources/images/unit-test-front-coverage.png' width='500'/>
 
-  
 ## Back
 
 Navigate to the **back** directory and run the terminal command `mvn clean test`.
